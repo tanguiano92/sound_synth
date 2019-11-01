@@ -5,3 +5,10 @@ html, body {
 canvas {
   display: block;
 }
+button {
+  float: center;
+  font-size: 8pt;
+  list-style-type: georgian;
+  background: red;
+  padding: 1px;
+}
