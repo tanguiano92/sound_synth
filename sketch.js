@@ -28,14 +28,11 @@ let delayBtn;
 let reverb;
 let delay;
 
-var wave;
-
-let playing = false;
-var slider;
-
-var env;
+let osc;
 
 let waveFormSelect;
+
+let pNoise;
 
 function preload(){
   soundFormats('mp3', 'ogg');
@@ -49,47 +46,10 @@ function preload(){
 function setup() {
   noCanvas();
 
-  reverb = new p5.Reverb();
- delay = new p5.Delay();
-
-env = new p5.Env();
-env.setADSR(0.05, 0.1, 0.5, 7);
-env.setRange(1.2, 0);
-
-  makeRain = select('#makeRainSound');
-  makeRain.mousePressed(rain);
-spill = select('#makeWaterSpill');
-spill.mousePressed(waters);
-  bees = select('#makeBees');
-  bees.mousePressed(bee);
-  stormy = select('#thunder');
-  stormy.mousePressed(storms);
-
-  peeps = select('#makeSpringPeepers');
-  peeps.mousePressed(springPeeps);
-
-  reverbBtn = select('#reverbButton');
-  delayBtn = select('#delayButton');
-
-  reverbBtn.mousePressed(function(){
-    rainSound.setVolume(.5, 2);
-    reverb.process(rainSound, 3, 2);
-    storm.setVolume(.5, 2);
-    reverb.process(storm, 3, 2);
-    water.setVolume(.5, 2);
-    reverb.process(water, 3, 2);
-  });
-
-  delayBtn.mousePressed(function(){
-    delay.process(rainSound, .12, .7, 2300);
-    delay.process(storm, .12, .7, 2300);
-    delay.process(water, .12, .7, 2300);
-  });
-
-  wave = new p5.Oscillator('square');
+  osc = new p5.Oscillator('square');
 
 // create dropdown menu to change osc Type
-
+createSpan('Select waveform: ');
 waveFormSelect = createSelect();
 waveFormSelect.option('sine');
 waveFormSelect.option('sawtooth');
@@ -97,22 +57,51 @@ waveFormSelect.option('square');
 waveFormSelect.option('triangle');
 waveFormSelect.changed(setWaveForm);
 
+  //makeRain = select('#makeRainSound');
+//spill = select('#makeWaterSpill');
+//spill.mousePressed(waters);
+  //bees = select('#makeBees');
+//  bees.mousePressed(bee);
+//  stormy = select('#thunder');
+  //stormy.mousePressed(storms);
 
-//  wave.setType('');
+//  peeps = select('#makeSpringPeepers');
+//  peeps.mousePressed(springPeeps);
 
-  slider = createSlider(100, 1200, 440);
+  reverb = new p5.Reverb();
+ delay = new p5.Delay();
+
+  reverbBtn = select('#reverbButton');
+  delayBtn = select('#delayButton');
+
+reverbBtn.mousePressed(function(){
+  rainSound.setVolume(.5, 2);
+  reverb.process(rainSound, 3, 2);
+  storm.setVolume(.5, 2);
+  reverb.process(storm, 3, 2);
+  water.setVolume(.5, 2);
+  reverb.process(water, 3, 2);
+});
+
+delayBtn.mousePressed(function(){
+  delay.process(rainSound, .12, .7, 2300);
+  delay.process(storm, .12, .7, 2300);
+  delay.process(water, .12, .7, 2300);
+});
 }
 
 function draw() {
 
-  wave.freq(map(mouseX, 0, width, 60, 1600));
-  wave.amp(map(mouseY, 0, height, 0, .2));
+  pNoise = noise(frameCount/20) * 100;
 
-wave.freq(slider.value());
+  osc.freq(map(mouseX, 0, width, 60, 1600) + pNoise);
+  osc.amp(map(mouseY, 0, height, .2, 0));
+
+
 }
 
 function setWaveForm(){
-  wave.setType(waveFormSelect.value());
+  osc.setType(waveFormSelect.value());
 }
 
 function rain(){
@@ -139,9 +128,9 @@ function waters(){
 
 
 function mousePressed(){
-  wave.start();
+  osc.start();
 }
 
 function mouseReleased(){
-  wave.stop()
+  osc.stop()
 }
