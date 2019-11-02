@@ -8,8 +8,5 @@ canvas {
 button {
   font-size: 8pt;
   background: red;
-  padding: 1px;
-}
-slider {
-  float: right;
+  padding: 15px;
 }
