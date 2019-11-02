@@ -4,8 +4,6 @@ let rainSound;
 
 let makeRain;
 
-let button;
-
 let bees;
 
 let makeBee;
