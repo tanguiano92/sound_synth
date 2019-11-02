@@ -57,16 +57,17 @@ waveFormSelect.option('square');
 waveFormSelect.option('triangle');
 waveFormSelect.changed(setWaveForm);
 
-  //makeRain = select('#makeRainSound');
-//spill = select('#makeWaterSpill');
-//spill.mousePressed(waters);
-  //bees = select('#makeBees');
-//  bees.mousePressed(bee);
-//  stormy = select('#thunder');
-  //stormy.mousePressed(storms);
+  makeRain = select('#makeRainSound');
+  makeRain.mousePressed(rain);
+spill = select('#makeWaterSpill');
+spill.mousePressed(waters);
+  bees = select('#makeBees');
+  bees.mousePressed(bee);
+  stormy = select('#thunder');
+  stormy.mousePressed(storms);
 
-//  peeps = select('#makeSpringPeepers');
-//  peeps.mousePressed(springPeeps);
+  peeps = select('#makeSpringPeepers');
+  peeps.mousePressed(springPeeps);
 
   reverb = new p5.Reverb();
  delay = new p5.Delay();
