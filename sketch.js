@@ -10,6 +10,12 @@ let storm;
 let spill;
 let water;
 
+let reverbBtn;
+let delayBtn;
+
+let reverb;
+let delay;
+
 var wave;
 
 let playing = false;
@@ -29,6 +35,9 @@ function preload(){
 function setup() {
   noCanvas();
 
+  reverb = new p5.Reverb();
+ delay = new p5.Delay();
+
 env = new p5.Env();
 env.setADSR(0.05, 0.1, 0.5, 1);
 env.setRange(1.2, 0);
@@ -44,6 +53,21 @@ env.setRange(1.2, 0);
 
   peeps = select('#makeSpringPeepers');
   peeps.mousePressed(springPeeps);
+
+  reverbBtn = select('#reverbButton');
+  delayBtn = select('#delayButton');
+
+  reverbBtn.mousePressed(function(){
+    rainSound.setVolume(.5, 2);
+    reverb.process(rainSound, 3, 2);
+    storm.setVolume(.5, 2);
+    reverb.process(storm, 3, 2);
+  });
+
+  delayBtn.mousePressed(function(){
+    delay.process(rainSound, .12, .7, 2300);
+    delay.process(storm, .12, .7, 2300);
+  });
 
   wave = new p5.Oscillator();
   wave.setType('sine');
@@ -75,7 +99,7 @@ function springPeeps(){
   springPeepers.play();
 }
 function storms(){
-  storm.setVolume(0.1);
+  storm.setVolume(0.5);
   storm.play();
 }
 function waters(){
