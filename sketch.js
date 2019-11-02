@@ -1,13 +1,25 @@
+'use strict';
+
 let rainSound;
+
 let makeRain;
+
 let button;
+
 let bees;
+
 let makeBee;
+
 let peeps;
+
 let springPeepers;
+
 let stormy;
+
 let storm;
+
 let spill;
+
 let water;
 
 let reverbBtn;
@@ -29,7 +41,7 @@ function preload(){
   makeBee = loadSound('audio/bees.mp3');
   springPeepers = loadSound('audio/spring_peepers.mp3');
   storm = loadSound('audio/thunderstorm.mp3')
-  water = loadSound('audio/water_in_glass_spill.mp3');
+  water = loadSound('audio/river.wav');
 }
 
 function setup() {
@@ -39,13 +51,13 @@ function setup() {
  delay = new p5.Delay();
 
 env = new p5.Env();
-env.setADSR(0.05, 0.1, 0.5, 1);
+env.setADSR(0.05, 0.1, 0.5, 5);
 env.setRange(1.2, 0);
 
   makeRain = select('#makeRainSound');
   makeRain.mousePressed(rain);
-  spill = select('#makeWaterSpill');
-  spill.mousePressed(waters);
+spill = select('#makeWaterSpill');
+spill.mousePressed(waters);
   bees = select('#makeBees');
   bees.mousePressed(bee);
   stormy = select('#thunder');
@@ -62,11 +74,14 @@ env.setRange(1.2, 0);
     reverb.process(rainSound, 3, 2);
     storm.setVolume(.5, 2);
     reverb.process(storm, 3, 2);
+    water.setVolume(.5, 2);
+    reverb.process(water, 3, 2);
   });
 
   delayBtn.mousePressed(function(){
     delay.process(rainSound, .12, .7, 2300);
     delay.process(storm, .12, .7, 2300);
+    delay.process(water, .12, .7, 2300);
   });
 
   wave = new p5.Oscillator();
