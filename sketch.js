@@ -51,7 +51,7 @@ function setup() {
  delay = new p5.Delay();
 
 env = new p5.Env();
-env.setADSR(0.05, 0.1, 0.5, 5);
+env.setADSR(0.05, 0.1, 0.5, 7);
 env.setRange(1.2, 0);
 
   makeRain = select('#makeRainSound');
@@ -85,19 +85,15 @@ spill.mousePressed(waters);
   });
 
   wave = new p5.Oscillator();
-  wave.setType('sine');
-  wave.start();
-  wave.freq(1000);
-  wave.amp(env);
-
-
-  button = createButton('play,pause')
-  button.mousePressed(toggle);
 
   slider = createSlider(100, 1200, 440);
 }
 
 function draw() {
+
+  wave.freq(map(mouseX, 0, width, 60, 1600));
+  wave.amp(map(mouseY, 0, height, 0, .2));
+
 wave.freq(slider.value());
 }
 
@@ -122,14 +118,12 @@ function waters(){
   water.play();
 }
 
-function toggle(){
-  env.play();
-//if (!playing) {
-  //    wave.amp(0.5, 1);
-  //playing = true;
-//} else {
-  //wave.stop();
-  //wave.amp(0, 1);
-  //playing = false;
-//}
+
+
+function mousePressed(){
+  wave.start();
+}
+
+function mouseReleased(){
+  wave.stop()
 }
