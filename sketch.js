@@ -35,6 +35,8 @@ var slider;
 
 var env;
 
+let waveFormSelect;
+
 function preload(){
   soundFormats('mp3', 'ogg');
   rainSound = loadSound('audio/rain.mp3');
@@ -84,7 +86,19 @@ spill.mousePressed(waters);
     delay.process(water, .12, .7, 2300);
   });
 
-  wave = new p5.Oscillator();
+  wave = new p5.Oscillator('square');
+
+// create dropdown menu to change osc Type
+
+waveFormSelect = createSelect();
+waveFormSelect.option('sine');
+waveFormSelect.option('sawtooth');
+waveFormSelect.option('square');
+waveFormSelect.option('triangle');
+waveFormSelect.changed(setWaveForm);
+
+
+//  wave.setType('');
 
   slider = createSlider(100, 1200, 440);
 }
@@ -95,6 +109,10 @@ function draw() {
   wave.amp(map(mouseY, 0, height, 0, .2));
 
 wave.freq(slider.value());
+}
+
+function setWaveForm(){
+  wave.setType(waveFormSelect.value());
 }
 
 function rain(){
