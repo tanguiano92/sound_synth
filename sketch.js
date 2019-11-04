@@ -94,8 +94,11 @@ function draw() {
   pNoise = noise(frameCount/20) * 100;
 
   osc.freq(map(mouseX, 0, width, 60, 1600) + pNoise);
-  osc.amp(map(mouseY, 0, height, .2, 0));
 
+
+
+  //osc.amp(map(mouseY, 0, height, .2, 0));
+osc.amp(map(sin(frameCount / 20), -1, 1, .05, .2));
 
 }
 
