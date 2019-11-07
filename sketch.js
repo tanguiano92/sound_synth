@@ -32,11 +32,6 @@ let waveFormSelect;
 
 let pNoise;
 
-var capture;
-var tracker
-var w = 640,
-  h = 480;
-
 let faceCentered = false;
 
 function preload() {
@@ -47,6 +42,11 @@ function preload() {
   storm = loadSound('audio/thunderstorm.mp3')
   water = loadSound('audio/river.wav');
 }
+
+var capture;
+var tracker
+var w = 640,
+  h = 480;
 
 function setup() {
   noCanvas();
