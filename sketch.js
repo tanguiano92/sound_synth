@@ -131,7 +131,7 @@ function setup() {
 
 function draw() {
 
-  pNoise = noise(frameCount / 20) * 100;
+   pNoise = noise(frameCount / 20) * 100;
 
   osc.freq(map(mouseX, 0, width, 60, 1600) + pNoise);
 
@@ -154,7 +154,7 @@ function draw() {
   //ends line shape around the face
   endShape();
 
-  noStroke();
+  stroke(255);
   // for loop puts together the line shape, points and numbers on face detection
   for (var i = 0; i < positions.length; i++) {
     //changes the color over time, "50, 100") rgb, "0-300" controls the hue
@@ -238,4 +238,10 @@ function mousePressed() {
 
 function mouseReleased() {
   osc.stop()
+}
+
+function smile(){
+  osc.setType(mouthLeftSelect.value());
+  osc.setType(smileSelect.value());
+  smile.play();
 }
