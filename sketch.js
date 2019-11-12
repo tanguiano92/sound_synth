@@ -118,7 +118,7 @@ function setup() {
   // this starts the capture
   tracker.start(capture.elt);
 
-  colorMode(HSB);
+  colorMode(RGB);
 
   tracker = new clm.tracker();
   tracker.init();
@@ -191,14 +191,14 @@ function draw() {
     }
   }
 
-  if (!faceCentered) {
-    textSize(30);
-    fill(0, 0, 0, 10);
+//  if (!faceCentered) {
+  //  textSize(30);
+    //fill(0, 0, 0, 10);
     // rectMode(CENTER);
-    rect(0, h / 2 - 70, w, 100)
-    fill(255);
-    text("Bring Your Face Closer", 100, h / 2);
-  }
+    //rect(0, h / 2 - 70, w, 100)
+    //fill(255);
+    //text("Bring Your Face Closer", 100, h / 2);
+  //}
 }
 
 function setWaveForm() {
