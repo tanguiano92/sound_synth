@@ -46,9 +46,6 @@ var capture;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-capture = createCapture();
-capture.hide();
-
   osc = new p5.Oscillator('square');
   // create dropdown menu to change osc Type
   createSpan('Select waveform: ');
@@ -58,6 +55,9 @@ capture.hide();
   waveFormSelect.option('square');
   waveFormSelect.option('triangle');
   waveFormSelect.changed(setWaveForm);
+
+  capture = createCapture();
+  capture.hide();
 
   makeRain = select('#makeRainSound');
   makeRain.mousePressed(rain);
