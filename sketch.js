@@ -28,6 +28,8 @@ let delay;
 
 let osc;
 
+var amp;
+
 let waveFormSelect;
 
 let pNoise;
@@ -52,6 +54,8 @@ function setup() {
   noCanvas();
 
   osc = new p5.Oscillator('square');
+
+   amp = new p5.Amplitude('smile');
 
   // create dropdown menu to change osc Type
   createSpan('Select waveform: ');
@@ -124,12 +128,13 @@ function setup() {
   tracker.init();
   tracker.start(capture.elt);
 
-  osc = new p5.Oscillator('square');
-
 
 }
 
 function draw() {
+
+  var vol = amp.getLevel(rect);
+  var diam = map(vol, 0, 0.3, 10, 200);
 
    pNoise = noise(frameCount / 20) * 100;
 
@@ -173,7 +178,7 @@ function draw() {
     var mouthRight = createVector(positions[50][0], positions[50][1]);
     var smile = mouthLeft.dist(mouthRight);
     // line shows a bar showing smiling amount
-    rect(20, 20, smile * 3, 20);
+    rect(20, 20, smile, diam, diam);
     // ^^^drawn here so as not to take up computer memory in the global scope.
     // uncomment for a surprise
     // noStroke();
@@ -206,15 +211,6 @@ function draw() {
 
 function setWaveForm() {
   osc.setType(waveFormSelect.value());
-}
-
-function mouthLeft(){
-  osc.setType(waveFormSelect.value());
-  wave.play(smileSelect);
-}
-
-function mouthRight(){
-
 }
 
 function rain() {
