@@ -46,7 +46,8 @@ var capture;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-capture = createCapture(THRESHOLD);
+capture = createCapture();
+capture.hide();
 
   osc = new p5.Oscillator('square');
   // create dropdown menu to change osc Type
@@ -96,19 +97,11 @@ capture = createCapture(THRESHOLD);
 
 function draw() {
   image(capture, 0, 0);
-  filter(GRAY);
+  filter(POSTERIZE, 3);
 
   osc.amp(map(mouseY, 0, height, .2, 0));
   osc.freq(map(mouseX, 0, width, 60, 1600));
 
-    }
-
-    function mousePressed() {
-      osc.start();
-    }
-
-    function mouseReleased() {
-      osc.stop()
     }
 
 function setWaveForm() {
@@ -138,4 +131,11 @@ function storms() {
 function waters() {
   water.setVolume(0.2);
   water.play();
+}
+function mousePressed() {
+  osc.start();
+}
+
+function mouseReleased() {
+  osc.stop()
 }
